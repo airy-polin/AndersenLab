@@ -1,0 +1,10 @@
+.SearchField {
+	margin-bottom: 50px;
+}
+
+.SearchField > input {
+	width: 14rem;
+	padding: 10px 15px;
+	border: 1px solid #333;
+	border-radius: 5px;
+}

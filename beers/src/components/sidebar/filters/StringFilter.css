@@ -1,0 +1,16 @@
+.StringFilter {
+	display: flex;
+	margin: 5px;
+}
+
+.StringFilter > label {
+	width: 6rem;
+	margin-right: 10px;
+	text-align: end;
+}
+.StringFilter > input {
+	width: 8rem;
+	padding: 2px 7px;
+	border-radius: 5px;
+	border: 1px solid #333;
+}

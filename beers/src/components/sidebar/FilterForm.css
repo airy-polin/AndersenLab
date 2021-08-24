@@ -1,0 +1,26 @@
+.FilterForm {
+	display: flex;
+	flex-direction: column;
+}
+
+.FilterForm > .Title {
+	font-weight: 700;
+	font-size: 16px;
+	text-transform: uppercase;
+	margin-bottom: 15px;
+}
+
+.FilterForm > .Filters {
+	font-size: 14px;
+	display: flex;
+	flex-direction: column;
+}
+
+.FilterForm > .Button {
+	padding: 7px 15px;
+	border-radius: 5px;
+	background-color: lightsalmon;
+	align-self: center;
+	margin-top: 15px;
+	text-transform: uppercase;
+}

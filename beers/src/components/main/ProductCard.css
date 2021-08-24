@@ -1,0 +1,42 @@
+.ProductCard {
+	display: flex;
+	width: 15rem;
+	padding: 10px;
+	margin: 15px;
+	background-color: #e7ecf0;
+	font-size: 14px;
+	border-radius: 3px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.ProductCard:last-child {
+	justify-content: flex-start;
+}
+
+.ProductCard > .Media img {
+	width: 50px;
+	height: 200px;
+}
+
+.ProductCard > .Info {
+	display: flex;
+	flex-direction: column;
+	margin-left: 20px;
+}
+
+.ProductCard > .Info > .Title {
+	margin-bottom: 10px;
+	font-weight: 700;
+	font-size: 16px;
+}
+
+.ProductCard > .Info {
+	display: flex;
+}
+
+
+
+.ProductCard > .Info > .Notes > .NoteItem {
+	margin: 10px 0;
+	display: flex;
+	flex-direction: column;
+}

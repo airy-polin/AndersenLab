@@ -1,0 +1,35 @@
+body {
+  /* background-color: #eff7fa; */
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+}
+
+.Sidebar {
+	padding: 35px 20px;
+	box-shadow: 5px 0 5px -5px #333;
+}
+
+.Main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 35px 20px;
+}
+.Main > .Pagination {
+  margin-bottom: 20px;
+}
+.Main > .Pagination > span {
+  margin: 5px;
+  cursor: pointer;
+}
+.Main > .Pagination > span.selected {
+  font-weight: 700;
+  text-decoration: underline;
+}
+.Main > .Pagination > span a,
+.Main > .Pagination > span.selected a {
+  color: #000;
+}
