@@ -2,8 +2,6 @@ import React from 'react';
 
 import './FilterForm.css';
 
-import getBeers from '../../helpers/getBeers';
-
 import NumberFilter from './filters/NumberFilter';
 import StringFilter from './filters/StringFilter';
 import DateFilter from './filters/DateFilter';
@@ -13,6 +11,8 @@ class FilterForm extends React.Component {
 		super(props);
 
 		this.state = {
+			isDisabled: true,
+			hasErrorInputVal: false,
 			filters: [
 				{ key:'abv_gt',
 				  value: '',
@@ -79,27 +79,30 @@ class FilterForm extends React.Component {
 
 		this.setState({
 			filters: result,
-		});
-	  }
-	
+		}, () => this.isFiltered());
+	}
+
+	hasErrorInputValueEntered = (errorFound) => {
+		!errorFound ? this.setState({ hasErrorInputVal: true }) : this.setState({ hasErrorInputVal: false });
+	}
+
+	isFiltered = () => {
+		const checkedFilters = this.state.filters.find(filter => filter.value !== '');
+
+		(checkedFilters && !this.state.hasErrorInputVal) ? this.setState({ isDisabled: false }) : this.setState({ isDisabled: true });
+	}
+
 	onClickHandler = () => {
 		const filters = this.state.filters.slice();
-		// const checkedFilters = filters
-		// 	.filter(filter => filter.value !== '')
-		// 	.map(param => `${param.key}=${param.value}`);
-
-		// let params = `?${checkedFilters.join('&')}`; //
-
-		getBeers(filters)
-		.then(filteredBeers => this.props.onFilterChangeHandler(filteredBeers));
+		this.props.onFilterChangeHandler(filters);
 	}
 
 	render() {
 		const filters = this.state.filters.slice();
 
 		const numberFilters = filters.filter(f => f.type === 'number'),
-			stringFilters = filters.filter(f => f.type === 'string');
-		const dateFilters = filters.filter(f => f.type === 'date');
+			  stringFilters = filters.filter(f => f.type === 'string'),
+			  dateFilters = filters.filter(f => f.type === 'date');
 
 		return(
 			<div className='FilterForm'>
@@ -115,6 +118,7 @@ class FilterForm extends React.Component {
 								value={filter.value}
 								type={filter.type}
 								onFilterChangeHandler={id => this.onFilterChangeHandler(id)}
+								hasErrorInputValueEntered={error => this.hasErrorInputValueEntered(error)}
 							/>
 						)
 					}
@@ -139,12 +143,13 @@ class FilterForm extends React.Component {
 								value={filter.value}
 								type={filter.type}
 								onFilterChangeHandler={id => this.onFilterChangeHandler(id)}
+								hasErrorInputValueEntered={error => this.hasErrorInputValueEntered(error)}
 							/>
 						)
 					}
 				</div>
 
-				<button className='Button' onClick={this.onClickHandler}>Filter</button>
+				<button className='Button' onClick={this.onClickHandler} disabled={this.state.isDisabled}>Filter</button>
 			</div>
 		);
 	};

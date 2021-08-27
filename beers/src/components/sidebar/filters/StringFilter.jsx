@@ -14,6 +14,7 @@ class StringFilter extends React.Component {
 
 	onFilterChangeHandler = (event) => {
 		let newVal = event.target.value;
+
 		const updParam = {
 			key: this.props.id,
 			value: newVal,
@@ -28,9 +29,11 @@ class StringFilter extends React.Component {
 
 	render() {
 		return(
-			<div className='StringFilter'>
-				<label htmlFor={this.props.id}>{this.props.name}</label>
-				<input type='text' id={this.props.id} defaultValue={this.state.value} onChange={this.onFilterChangeHandler} />
+			<div className='Filter'>
+				<div className='StringFilter'>
+					<label htmlFor={this.props.id}>{this.props.name}</label>
+					<input type='text' id={this.props.id} defaultValue={this.state.value} onChange={this.onFilterChangeHandler} />
+				</div>
 			</div>
 		);
 	};

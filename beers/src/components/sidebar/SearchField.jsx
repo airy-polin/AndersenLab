@@ -3,7 +3,6 @@ import React from 'react';
 import './SearchField.css';
 
 import debounce from '../../helpers/debounce';
-import getBeers from '../../helpers/getBeers';
 
 class SearchField extends React.Component {
 	constructor(props) {
@@ -15,8 +14,6 @@ class SearchField extends React.Component {
 	}
 
 	onSearchInputChangeHandler = (event) => {
-		// debugger; //
-
 		let updValue = event.target.value;
 		const newSearchVal = [
 			{key: 'beer_name', value: updValue,},
@@ -24,11 +21,6 @@ class SearchField extends React.Component {
 		this.setState({ searchVal: newSearchVal });
 
 		this.props.onSearchInputChangeHandler(newSearchVal);
-
-		// let params = `?${this.state.searchVal.key}=${updValue}`;
-
-		// getBeers(newSearchVal)
-		// .then(searchedBeers => this.props.onSearchInputChangeHandler(searchedBeers));
 	}
 
 	onSearchInputChangeHandlerDebounced = debounce(this.onSearchInputChangeHandler, 200);

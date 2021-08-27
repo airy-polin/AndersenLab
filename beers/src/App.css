@@ -1,35 +1,54 @@
-body {
-  /* background-color: #eff7fa; */
-}
-
 .App {
-  height: 100vh;
   display: flex;
 }
 
 .Sidebar {
 	padding: 35px 20px;
 	box-shadow: 5px 0 5px -5px #333;
+  height: 100vh;
 }
 
 .Main {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 35px 20px;
 }
-.Main > .Pagination {
+
+.Main > .Navigation {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 20px;
 }
-.Main > .Pagination > span {
-  margin: 5px;
+
+.Main > .Navigation > .SliderButtons {
+  display: flex;
+  align-self: center;
+}
+.Main > .Navigation > .SliderButtons > button {
+  margin: 4px;
+  padding: 3px 9px;
+  border-radius: 5px;
+}
+.Main > .Navigation > .SliderButtons > span {
+  margin: 6px;
+}
+
+.Main > .Navigation > .Options {
+  display: flex;
+  flex-direction: column;
+  margin-right: 15px;
+}
+.Main > .Navigation > .Options > select {
+  align-self: flex-end;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+
+/* UI */
+select,
+option,
+button {
   cursor: pointer;
-}
-.Main > .Pagination > span.selected {
-  font-weight: 700;
-  text-decoration: underline;
-}
-.Main > .Pagination > span a,
-.Main > .Pagination > span.selected a {
-  color: #000;
 }

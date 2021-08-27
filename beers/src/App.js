@@ -1,5 +1,4 @@
 import React from 'react';
-// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import './App.css';
 
@@ -19,6 +18,8 @@ class App extends React.Component {
       pageSize: 10,
       totalProductsCount: 0,
       currentPage: 1,
+      isFiltered: false,
+      filters: [],
 			searchVal: [
         { key: 'beer_name',
           value: '',
@@ -28,31 +29,19 @@ class App extends React.Component {
 	}
 
   fetchBeers = (params) => {
-    let defaultFilters = params;
-    if (!params) {
-      defaultFilters = [
-        {
-          key: 'page',
-          value: this.state.currentPage,
-        },
-        {
-          key: 'per_page',
-          value: this.state.pageSize,
-        }
-      ];
-    }
-    // const defaultFilters = [
-    //   {
-    //     key: 'page',
-    //     value: this.state.currentPage,
-    //   },
-    //   {
-    //     key: 'per_page',
-    //     value: this.state.pageSize,
-    //   }
-    // ];
+    const defaultFilters = [
+      {
+        key: 'page',
+        value: this.state.currentPage,
+      },
+      {
+        key: 'per_page',
+        value: this.state.pageSize,
+      }
+    ];
+    const result = params ? defaultFilters.concat(params) : defaultFilters;
 
-    getBeers(defaultFilters)
+    getBeers(result)
     .then(data => this.setState({
       beers: data,
       totalProductsCount: data.length,
@@ -63,43 +52,45 @@ class App extends React.Component {
     this.fetchBeers();
   }
 
-  renderPage = (event) => {
-    // debugger;
-    let clickedPage = event.target.innerText;
-    this.setState({ currentPage: clickedPage });
-
-    this.fetchBeers(); //
+  renderItemsPerPage = (event) => {
+    this.setState({
+      pageSize: event.target.value
+    }, () => this.fetchBeers());
   }
 
-  onSearchInputChangeHandler = (newSearchVal) => { // (searchedBeers)
-    // this.setState({
-    //   beers: searchedBeers,
-    //   totalProductsCount: searchedBeers.length,
-    // });
-
-    // debugger; //
+  slidePageToTheRight = () => {
     this.setState({
-      searchVal: newSearchVal
-    });
-    this.fetchBeers(newSearchVal);
+      currentPage: this.state.currentPage + 1
+    }, () => this.fetchBeers());
   }
 
-  onFilterChangeHandler = (filteredBeers) => {
+  slidePageToTheLeft = () => {
     this.setState({
-      beers: filteredBeers,
-      totalProductsCount: filteredBeers.length,
-    });
+      currentPage: this.state.currentPage - 1
+    }, () => this.fetchBeers());
+  }
+
+  onSearchInputChangeHandler = (newSearchVal) => {
+    let result = (this.state.isFiltered) ? this.state.filters.concat(newSearchVal) : newSearchVal;
+
+    this.setState({
+      searchVal: result
+    }, () => this.fetchBeers(result));
+  }
+
+  onFilterChangeHandler = (filters) => {
+    const isFiltered = filters.find(filter => filter.value !== '');
+
+    if (isFiltered) {
+      this.setState({
+        isFiltered: true,
+        filters: filters
+      }, () => this.fetchBeers(filters));
+    }
   }
 
   render() {
-    // debugger;
-    // let pagesCount = Math.ceil(this.state.totalProductsCount / this.state.pageSize);
-    let pagesCount = 3; //
-    const pages = [];
-
-    for (let i = 1; i <= pagesCount; i++) {
-      pages.push(i);
-    }
+    let isHomePage = (this.state.currentPage === 1) ? true : false;
 
     return (
       <div className='App'>
@@ -114,15 +105,22 @@ class App extends React.Component {
         </aside>
 
         <main className='Main'>
-          <div className='Pagination' onClick={this.renderPage}>
-              {
-                pages.map(p =>
-                  <span className={this.state.currentPage === p && 'selected'} key={p}>
-                    {p}
-                  </span>
-                )
-              }
+          <div className='Navigation'>
+            <div className='SliderButtons'>
+              <button type='button' disabled={isHomePage} onClick={this.slidePageToTheLeft}>prev</button>
+              <span>{this.state.currentPage}</span>
+              <button type='button' onClick={this.slidePageToTheRight}>next</button>
+            </div>
+
+            <div className='Options' onChange={this.renderItemsPerPage}>
+              <select defaultValue={this.state.pageSize}>
+                <option defaultValue={6}>6</option>
+                <option defaultValue={8}>8</option>
+                <option defaultValue={10}>10</option>
+              </select>
+            </div>
           </div>
+
           <ProductsList
             beers={this.state.beers}
           />

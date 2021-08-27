@@ -1,5 +1,4 @@
 export default function getBeers(filters) {
-	// debugger;
 	let checkedFilters = '';
 	if (filters) {
 		checkedFilters = filters

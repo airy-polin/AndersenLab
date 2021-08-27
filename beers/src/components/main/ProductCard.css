@@ -29,12 +29,6 @@
 	font-size: 16px;
 }
 
-.ProductCard > .Info {
-	display: flex;
-}
-
-
-
 .ProductCard > .Info > .Notes > .NoteItem {
 	margin: 10px 0;
 	display: flex;
