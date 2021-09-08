@@ -15,6 +15,7 @@ class SearchField extends React.Component {
 
 	onSearchInputChangeHandler = (event) => {
 		let updValue = event.target.value;
+    // нужно const вместо let
 		const newSearchVal = [
 			{key: 'beer_name', value: updValue,},
 		];

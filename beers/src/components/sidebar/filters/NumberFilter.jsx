@@ -15,6 +15,7 @@ class NumberFilter extends React.Component {
 		};
 	}
 
+  // код очень похож на код в DateFilter, возможно можно что-то вынести и переиспользовать?
 	onFilterChangeHandler = (event) => {
 		let newVal = event.target.value;
 

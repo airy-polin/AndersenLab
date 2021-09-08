@@ -13,6 +13,7 @@ class ProductCard extends React.Component {
 	};
 
 	render() {
+    // тут стоит деструктуризировать пропсы
 		return (
 			<div className='ProductCard' id={this.props.id}>
 				<div className='Media'>

@@ -19,6 +19,7 @@ class DateFilter extends React.Component {
 	onFilterChangeHandler = (event) => {
 		let newVal = event.target.value;
 		let regexp = /^(0|1)\d-(1|2)\d{3}$/;
+    // почему let вместо const?
 
 		if (newVal === '' || regexp.test(newVal)) {
 			const updParam = {
