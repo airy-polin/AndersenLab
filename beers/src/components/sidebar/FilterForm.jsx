@@ -84,22 +84,26 @@ class FilterForm extends React.Component {
 
 	hasErrorInputValueEntered = (errorFound) => {
 		!errorFound ? this.setState({ hasErrorInputVal: true }) : this.setState({ hasErrorInputVal: false });
+    // можно просто this.setState({ hasErrorInputVal: !errorFound })
 	}
 
 	isFiltered = () => {
 		const checkedFilters = this.state.filters.find(filter => filter.value !== '');
 
 		(checkedFilters && !this.state.hasErrorInputVal) ? this.setState({ isDisabled: false }) : this.setState({ isDisabled: true });
+    // тоже можно сократить по примеру выше. И плохая практика использовать тернарку если мы значение никуда не пишем, тогда лучше if/else
 	}
 
 	onClickHandler = () => {
 		const filters = this.state.filters.slice();
 		this.props.onFilterChangeHandler(filters);
+    // можно просто this.props.onFilterChangeHandler([...this.state.filters]);
 	}
 
 	render() {
 		const filters = this.state.filters.slice();
 
+    // тоже функция в filter ниже почти та же, можно вынести в отдельную
 		const numberFilters = filters.filter(f => f.type === 'number'),
 			  stringFilters = filters.filter(f => f.type === 'string'),
 			  dateFilters = filters.filter(f => f.type === 'date');

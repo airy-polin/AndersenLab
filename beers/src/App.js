@@ -72,6 +72,7 @@ class App extends React.Component {
 
   onSearchInputChangeHandler = (newSearchVal) => {
     let result = (this.state.isFiltered) ? this.state.filters.concat(newSearchVal) : newSearchVal;
+    // const вместо let
 
     this.setState({
       searchVal: result
@@ -91,6 +92,7 @@ class App extends React.Component {
 
   render() {
     let isHomePage = (this.state.currentPage === 1) ? true : false;
+    // const вместо let, и можно просто const isHomePage = this.state.currentPage === 1
 
     return (
       <div className='App'>
